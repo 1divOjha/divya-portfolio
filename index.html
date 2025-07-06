@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Divya Ojha | Portfolio</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      scroll-behavior: smooth;
+      
+    }
+    body {
+      background: linear-gradient(to right, #f4f6f9, #e3eaf2);
+      padding: 10px;
+      color: #2c3e50;
+      overflow-x: hidden;
+    }
+    header {
+      background: white;
+      color: black;
+      padding: 40px 20px;
+      text-align: center;
+      animation: slideInDown 1s ease-out;
+      margin: 10px
+    }
+    header p{
+        font-family: monospace;
+        font-size: 15px;
+    }
+    nav{
+        margin:10px;
+        border: 1px solid black;
+        padding: 4px;
+        background: beige;
+    }
+    nav a {
+      color: black;
+      margin: 2px 15px;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+    nav a:hover {
+      color: #1abc9c;
+    }
+    section {
+      padding: 60px 20px;
+      max-width: 1000px;
+      margin: auto;
+      animation: fadeIn 1s ease-in;
+    }
+    h1, h2 {
+      color: #2c3e50;
+      margin-bottom: 20px;
+    }
+    .interests {
+      display: flex;
+      gap: 30px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .interest-card {
+      flex: 1 1 280px;
+      background: #ffffff;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s;
+      text-align: center;
+    }
+    .interest-card:hover {
+      transform: translateY(-10px);
+    }
+    .interest-card i {
+      font-size: 30px;
+      color: #1abc9c;
+      margin-bottom: 15px;
+    }
+    footer {
+      text-align: center;
+      padding: 30px 20px;
+      background: black;
+      color: white;
+      font-size: 14px;
+    }
+    a {
+      color: #1abc9c;
+      text-decoration: none;
+    }
+
+    @keyframes slideInDown {
+      0% { transform: translateY(-100%); opacity: 0; }
+      100% { transform: translateY(0); opacity: 1; }
+    }
+    @keyframes fadeIn {
+      0% { opacity: 0; transform: translateY(20px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Divya Ojha</h1>
+    <p>CSE Student | Enthusiast in Data Structures, AI, Blockchain</p>
+    <nav>
+      <a href="#about"><i class="fas fa-user"></i> About</a>
+      <a href="#interests"><i class="fas fa-code"></i> Interests</a>
+      <a href="#contact"><i class="fas fa-envelope"></i> Projects</a>
+      <a href="#contact"><i class="fas fa-envelope"></i> Contact</a>
+    </nav>
+  </header>
+
+  <section id="about">
+    <h2>About Me</h2>
+    <p>
+      👋 Hi! I'm <strong>Divya Ojha</strong>, a Computer Science Engineering student passionate about creating smart solutions with code. I enjoy diving deep into <strong>Data Structures</strong>, experimenting with <strong>AI</strong>, and exploring the potential of <strong>Blockchain</strong> in shaping the future.
+    </p>
+  </section>
+  
+  <section id="medium">
+    <h2>My Medium Stories</h2>
+    <div class="medium-articles" id="medium-feed">
+      <p>Loading latest stories...</p>
+    </div>
+  </section>
+
+  <section id="interests">
+    <h2>My Interests</h2>
+    <div class="interests">
+      <div class="interest-card">
+        <i class="fas fa-database"></i>
+        <h3>Data Structures</h3>
+        <p>Problem-solving, algorithms, and building optimized applications are where I thrive.</p>
+      </div>
+      <div class="interest-card">
+        <i class="fas fa-robot"></i>
+        <h3>Artificial Intelligence</h3>
+        <p>From machine learning models to smart systems, I love developing intelligent applications.</p>
+      </div>
+      <div class="interest-card">
+        <i class="fas fa-link"></i>
+        <h3>Blockchain</h3>
+        <p>I'm interested in decentralization, smart contracts, and Web3 technologies.</p>
+      </div>
+    </div>
+  </section>
+  
+  
+
+  <section id="contact">
+    <h2>Contact</h2>
+    <p><i class="fas fa-envelope"></i> Email: <a href="mailto:divyaojha792@gmail.com">divyaojha792@gmail.com</a></p>
+    <p><i class="fab fa-github"></i> GitHub: <a href="https://github.com/1divOjha" target="_blank">https://github.com/1divOjha</a></p>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 Divya Ojha | Made with ❤️</p>
+  </footer>
+  
+  <script>
+    // Replace with your Medium username
+    const mediumUsername = "@divyaojha792"; 
+    const feedURL = `https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/${mediumUsername}`;
+
+   fetch(feedURL)
+      .then(res => res.json())
+      .then(data => {
+        const container = document.getElementById("medium-feed");
+        container.innerHTML = "";
+        data.items.slice(0, 3).forEach(post => {
+          const a = document.createElement("a");
+          a.href = post.link;
+          a.target = "_blank";
+          a.innerHTML = `<h3>${post.title}</h3><p>${post.pubDate.slice(0, 10)} | ${post.author}</p>`;
+          container.appendChild(a);
+        });
+      })
+      .catch(() => {
+        document.getElementById("medium-feed").innerHTML = "<p>Unable to load stories.</p>";
+      });
+  </script>
+</body>
+</html>
